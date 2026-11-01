@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "b64canon"
+version = "0.1.0"
+description = "Strict RFC 4648 canonical base64 validation and repair"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "linluozi"}]
+keywords = ["base64", "rfc4648", "validation", "canonical", "security", "xcal"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Security",
+]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+b64canon = "b64canon.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["b64canon*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
