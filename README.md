@@ -6,6 +6,8 @@ Strict [RFC 4648](https://www.rfc-editor.org/rfc/rfc4648#section-3.5) **canonica
 
 `b64canon` answers three questions precisely: **is this canonical**, **why not**, and **what is the canonical spelling**.
 
+Upstream: https://github.com/collective/icalendar/pull/2053 — the xCal base64 bug this library was extracted from.
+
 ## Why this exists (a real bug, measured)
 
 While auditing `collective/icalendar` on CPython 3.12.3, `vBinary.from_xcal()` was found to accept an invalid xCal `<binary>` value:
