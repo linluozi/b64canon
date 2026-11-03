@@ -173,8 +173,14 @@ def normalize(data) -> str:
         raise NonCanonicalBase64(
             Diagnostic("non_alphabet", bad, "byte is not ASCII")
         )
+    # Repair the padding *before* handing the text to b64decode.  CPython
+    # >= 3.12.15 rejects oversized padding ("MTIz=") under validate=True with
+    # "Excess padding not allowed", so decoding first would turn a spelling
+    # this function is documented to repair into a hard error.
+    body = text.rstrip("=")
+    padded = body + "=" * (-len(body) % 4)
     try:
-        raw = base64.b64decode(text, validate=True)
+        raw = base64.b64decode(padded, validate=True)
     except (binascii.Error, ValueError) as exc:
         raise NonCanonicalBase64(
             Diagnostic("non_alphabet", None, f"cannot decode: {exc}")
